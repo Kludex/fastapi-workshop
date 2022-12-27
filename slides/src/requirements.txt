@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+sqlalchemy
+websockets
+
+flake8
+isort
+black
+mypy
