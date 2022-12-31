@@ -4,3 +4,4 @@ sqlalchemy
 pyhumps
 pytest
 httpx
+coverage
