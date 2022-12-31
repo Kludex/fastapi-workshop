@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.core.database import get_session
@@ -38,6 +38,8 @@ def get_item(item_id: int, session: Session = Depends(get_session)):
         dict: The item.
     """
     item = session.query(Item).get(item_id)
+    if item is None:
+        raise HTTPException(status_code=404, detail="Item not found")
     return item.dict()
 
 
@@ -72,5 +74,7 @@ def delete_item(item_id: int, session: Session = Depends(get_session)):
         session (Session): The database session.
     """
     item = session.query(Item).get(item_id)
+    if item is None:
+        raise HTTPException(status_code=404, detail="Item not found")
     session.delete(item)
     session.commit()
