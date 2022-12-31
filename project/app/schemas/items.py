@@ -1,9 +1,9 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ItemBase(BaseModel):
-    name: str
-    price: int
+    name: str = Field(..., example="Kludex", description="The name of the item.")
+    price: int = Field(..., example=100, description="The price of the item.")
 
 
 class ItemCreate(ItemBase):
@@ -13,7 +13,7 @@ class ItemCreate(ItemBase):
 class ItemOutput(ItemBase):
     """Output data for an item."""
 
-    id: int
+    id: int = Field(..., example=1, description="The ID of the item.")
 
     class Config:
         """Model configuration."""
