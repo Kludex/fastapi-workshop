@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_session
 from app.models import Item
+from app.schemas.items import ItemCreate
 
 router = APIRouter(prefix="/items", tags=["Items"])
 
@@ -41,7 +42,7 @@ def get_item(item_id: int, session: Session = Depends(get_session)):
 
 
 @router.post("/", status_code=201)
-def create_item(name: str, price: int, session: Session = Depends(get_session)):
+def create_item(item: ItemCreate, session: Session = Depends(get_session)):
     """
     Create an item.
 
@@ -54,10 +55,10 @@ def create_item(name: str, price: int, session: Session = Depends(get_session)):
     Returns:
         dict: The item.
     """
-    item = Item(name=name, price=price)
-    session.add(item)
+    obj = Item(**item.dict())
+    session.add(obj)
     session.commit()
-    return item.dict()
+    return obj.dict()
 
 
 @router.delete("/{item_id}", status_code=204)
