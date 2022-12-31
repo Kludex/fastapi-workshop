@@ -12,8 +12,3 @@ app.include_router(api_router)
 @app.on_event("startup")
 def startup_event():
     Base.metadata.create_all(bind=engine)
-
-
-@app.get("/")
-def home():
-    return {"Hello": "World"}
