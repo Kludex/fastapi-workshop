@@ -8,3 +8,14 @@ class ItemBase(BaseModel):
 
 class ItemCreate(ItemBase):
     """Data to create an item."""
+
+
+class ItemOutput(ItemBase):
+    """Output data for an item."""
+
+    id: int
+
+    class Config:
+        """Model configuration."""
+
+        orm_mode = True
