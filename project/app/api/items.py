@@ -1,11 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from app.core.auth import authorized
 from app.core.database import get_session
 from app.models import Item
 from app.schemas.items import ItemCreate
 
-router = APIRouter(prefix="/items", tags=["Items"])
+router = APIRouter(prefix="/items", tags=["Items"], dependencies=[Depends(authorized)])
 
 
 @router.get("/")
